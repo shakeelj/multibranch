@@ -1,6 +1,8 @@
 node {
    // Mark the code checkout 'stage'....
    stage 'Checkout'
+   sh 'echo $GIT_BRANCH'
+   sh 'echo $(git branch)'
 
    // Checkout code from repository
    checkout scm

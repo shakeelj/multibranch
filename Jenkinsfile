@@ -5,7 +5,7 @@
 
 		 stage('Build') 
 		 {
-			if (env.BRANCH_NAME == 'develop') 
+			if (env.BRANCH_NAME == 'development') 
 			{
 				echo 'I only execute on the develop branch'
 				git url: 'https://github.com/santoshdevops/multibranch.git'

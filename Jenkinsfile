@@ -48,17 +48,17 @@ node
 	stage('clean')
        {
 	   
-       sh "mvn clean"
+       sh "echo cleandevelop"
        }
   
     stage('package')
       {
-       sh "mvn package -DskipTests"
+       sh "echo packagedevelop "
        }
 	   
     stage('publish to artifactory')
        {
-	   sh 'echo hello'
+	   sh 'echo publish to arti develop'
 	//   sh """
      //  cd target
 // there is issue in pom.xml which needs to be corrected by dev, so using work around for now
@@ -84,17 +84,19 @@ node
 	stage('clean')
        {
 	   
-       sh "mvn clean"
+       sh "echo masterclean"
        }
   
     stage('package')
       {
-       sh "mvn package -DskipTests"
+       sh "echo packagemaster"
        }
 	   
     stage('publish to artifactory')
        {
-	     sh 'echo hello'
+	     sh 'echo masterpublishtorepos
+		 echo {env.BUILD_NUMBER}'
+		 
 	   //sh """
        //cd target
 	   //mv mw-identity-exp-api-1.0.zip  mw-identity-exp-api-1.0.0-{env.BUILD_NUMBER}.zip
@@ -123,12 +125,12 @@ node
 	stage('clean')
        {
 	   
-       sh "mvn clean"
+       sh "echo cleanfeature"
        }
   
     stage('package')
        {
-       sh "mvn package -DskipTests"
+       sh "echo packagefeature"
        }
 	
     }

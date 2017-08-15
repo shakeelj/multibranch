@@ -17,6 +17,8 @@ node
 	    if (env.BRANCH_NAME && env.BRANCH_NAME.matches("feature/*") ) 
 			{
 			//calling the function featureBranch if feature branch is getting built
+			sh "hello world 123"
+			sh "echo {env.BUILD_NUMBER} "
 			 featureBranch()
 			}
 		}	

@@ -13,7 +13,14 @@ stage('master')
       
       steps {
                 echo 'checking out master'
- checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'A']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])      
+
+       git url: 'https://github.com/santoshdevops/multibranch.git'
+
+       sh "cd master; /bin/mvn clean"
+
+       sh "cd master; /bin/mvn package -DskipTests"
+
+ 
     }
     }
 
@@ -32,9 +39,9 @@ stage('master')
 
        git url: 'https://github.com/santoshdevops/multibranch.git'
 
-       sh "cd A; /bin/mvn clean"
+       sh "cd development; /bin/mvn clean"
 
-       sh "cd A; /bin/mvn package -DskipTests"
+       sh "cd development; /bin/mvn package -DskipTests"
 
  
     }
@@ -48,9 +55,16 @@ stage('master')
          branch 'feature'
       }
       
-      steps {
+         steps {
                 echo 'checking out feature'
- checkout([$class: 'GitSCM', branches: [[name: '*/feature']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'A']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])      
+
+       git url: 'https://github.com/santoshdevops/multibranch.git'
+
+       sh "cd feature; /bin/mvn clean"
+
+       sh "cd feature; /bin/mvn package -DskipTests"
+
+ 
     }
     }
 	

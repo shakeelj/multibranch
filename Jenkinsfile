@@ -127,11 +127,11 @@ node
        }
   
     stage('package')
-      {
+       {
        sh "mvn package -DskipTests"
        }
 	
-    	}
+    }
 	
 	
 	
@@ -143,5 +143,5 @@ node
 	
 	
 	 
-}
+
 

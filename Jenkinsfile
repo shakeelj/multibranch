@@ -28,7 +28,7 @@ node
     finally 
     {
     // Send notification for success/failure
-    notifyBuild(currentBuild.result)
+    notifyBuild()
     }	
 		
 		
@@ -123,7 +123,7 @@ node
 	}
 	
 
-	def notifyBuild(currentBuild.result)
+	def notifyBuild()
 	{
 	sh 'echo hello'
 	}

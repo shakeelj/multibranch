@@ -15,6 +15,8 @@ node
 			 featurebranch()
 			}
 		}	
+		
+}
 
 	def developBranch() 
 	{
@@ -104,11 +106,7 @@ node
 
 	}
 	
-	
-	
-}	
-	
-	
+
 	
 	
 

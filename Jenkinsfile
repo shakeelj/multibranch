@@ -32,9 +32,9 @@ stage('master')
 
        git url: 'https://github.com/santoshdevops/multibranch.git'
 
-       sh "mvn clean"
+       sh "cd A; /bin/mvn clean"
 
-       sh "mvn package -DskipTests"
+       sh "cd A; /bin/mvn package -DskipTests"
 
  
     }

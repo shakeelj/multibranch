@@ -14,7 +14,7 @@ node
 			//calling the function masterBranch if master branch is getting built
 			 masterBranch()
 			}
-	    if (env.BRANCH_NAME && env.BRANCH_NAME.matches("feature/[*/]") 
+	    if (env.BRANCH_NAME && env.BRANCH_NAME.matches("feature/[*/]") ) 
 			{
 			//calling the function featureBranch if feature branch is getting built
 			 featureBranch()

@@ -1,5 +1,8 @@
 node
 {
+
+    try
+	{
     stage('select the branch')
 	    {
 	    if (env.BRANCH_NAME == 'development') 
@@ -15,6 +18,19 @@ node
 			 featurebranch()
 			}
 		}	
+		
+	} 
+	catch(e) 
+	{
+    currentBuild.result = "FAILED"
+    throw(e)
+    } 
+    finally 
+    {
+    // Send notification for success/failure
+    notifyBuild(currentBuild.result)
+    }	
+		
 		
 }
 
@@ -107,6 +123,9 @@ node
 	}
 	
 
-	
+	def notifyBuild(currentBuild.result)
+	{
+	sh 'echo hello'
+	}
 	
 

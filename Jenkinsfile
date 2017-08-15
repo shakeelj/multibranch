@@ -15,7 +15,7 @@ node
 			 masterBranch()
 			}
 	    //if (env.BRANCH_NAME && env.BRANCH_NAME.matches("featur*/*") ) 
-		if (env.BRANCH_NAME ==~ /(?s).*featur*/) 
+		if (env.BRANCH_NAME ==~ feat*) 
 			{
 			//calling the function featureBranch if feature branch is getting built
 			sh "echo hello world 123"

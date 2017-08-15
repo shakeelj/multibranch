@@ -1,17 +1,17 @@
-node {
-   // Mark the code checkout 'stage'....
-   stage 'Checkout'
 
-   // Checkout code from repository
-   checkout scm
+  
+   node {
+    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'A']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])
+    dir('A') {
+        sh 'echo master'
+    }
+    checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'B']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])
+    dir('B') {
+        sh 'echo development'
+    }
+checkout([$class: 'GitSCM', branches: [[name: '*/feature']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'C']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])
+    dir('C') {
+        sh 'echo feature'
+    }
 
-   // Get the maven tool.
-   // ** NOTE: This 'M3' maven tool must be configured
-   // **       in the global configuration.
- //  def mvnHome = tool 'M3'
-
-   // Mark the code build 'stage'....
-   stage 'Build'
-   // xxRun ubcthe maven build
-   sh "/bin/mvn clean install"
-}
+    }

@@ -16,9 +16,9 @@ stage('master')
 
        git url: 'https://github.com/santoshdevops/multibranch.git'
 
-       sh "cd master; /bin/mvn clean"
+       sh "/bin/mvn clean"
 
-       sh "cd master; /bin/mvn package -DskipTests"
+       sh "/bin/mvn package -DskipTests"
 
  
     }
@@ -39,9 +39,9 @@ stage('master')
 
        git url: 'https://github.com/santoshdevops/multibranch.git'
 
-       sh "cd development; /bin/mvn clean"
+       sh "/bin/mvn clean"
 
-       sh "cd development; /bin/mvn package -DskipTests"
+       sh "/bin/mvn package -DskipTests"
 
  
     }
@@ -60,9 +60,9 @@ stage('master')
 
        git url: 'https://github.com/santoshdevops/multibranch.git'
 
-       sh "cd feature; /bin/mvn clean"
+       sh "/bin/mvn clean"
 
-       sh "cd feature; /bin/mvn package -DskipTests"
+       sh "/bin/mvn package -DskipTests"
 
  
     }

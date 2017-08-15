@@ -1,75 +1,35 @@
-pipeline {
-  
-agent any
-      
-stages  {
-    
-stage('master')
-    {
-      
-       when {
-         branch 'master'
-      }
-      
-      steps {
-                echo 'checking out master'
+	node {
+		stage('Clean') {
+		 sh 'mvn clean'
+			 }
 
-       git url: 'https://github.com/santoshdevops/multibranch.git'
-
-       sh "/bin/mvn clean"
-
-       sh "/bin/mvn package -DskipTests"
-
- 
-    }
-    }
-
-
-
+		 stage('Build') {
+			if (env.BRANCH_NAME == 'development') {
+				echo 'I only execute on the development branch'
+				git url: 'https://github.com/santoshdevops/multibranch.git'
+				sh "/bin/mvn clean"
+				sh "/bin/mvn package -DskipTests"
+				
+			} else {
+				echo 'I execute elsewhere'
+			}
+		
+		
+		
+		stage('deploy') {
+			if (env.BRANCH_NAME == 'master') {
+				echo 'I only execute on the master branch'
+				git url: 'https://github.com/santoshdevops/multibranch.git'
+				sh "/bin/mvn package -DskipTests"
+				
+			} else {
+				echo 'I execute elsewhere'
+			}
+		
+			
+		}
+		
+		
 	
-	 stage('development')
-    {
-      
-       when {
-         branch 'development'
-      }
-      
-      steps {
-                echo 'checking out development'
-
-       git url: 'https://github.com/santoshdevops/multibranch.git'
-
-       sh "/bin/mvn clean"
-
-       sh "/bin/mvn package -DskipTests"
-
- 
-    }
-    }
-	
-	
-	 stage('feature')
-    {
-      
-       when {
-         branch 'feature'
-      }
-      
-         steps {
-                echo 'checking out feature'
-
-       git url: 'https://github.com/santoshdevops/multibranch.git'
-
-       sh "/bin/mvn clean"
-
-       sh "/bin/mvn package -DskipTests"
-
- 
-    }
-    }
-	
-	}
-	}
-	
-	
-	
+		
+		}

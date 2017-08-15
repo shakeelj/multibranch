@@ -18,7 +18,7 @@ node
 			{
 			//calling the function featureBranch if feature branch is getting built
 			sh "echo hello world 123"
-			sh "echo {env.BUILD_NUMBER} "
+			sh "echo ${env.BUILD_NUMBER} "
 			 featureBranch()
 			}
 		}	

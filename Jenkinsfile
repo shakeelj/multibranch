@@ -51,7 +51,7 @@ node
        sh "mvn clean"
        }
   
-    stage'package'
+    stage('package')
       {
        sh "mvn package -DskipTests"
        }
@@ -87,7 +87,7 @@ node
        sh "mvn clean"
        }
   
-    stage'package'
+    stage('package')
       {
        sh "mvn package -DskipTests"
        }
@@ -126,7 +126,7 @@ node
        sh "mvn clean"
        }
   
-    stage'package'
+    stage('package')
       {
        sh "mvn package -DskipTests"
        }

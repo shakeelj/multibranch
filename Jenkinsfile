@@ -16,6 +16,9 @@ stage('master')
  checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'A']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])      
     }
     }
+
+
+
 	
 	 stage('development')
     {
@@ -26,7 +29,29 @@ stage('master')
       
       steps {
                 echo 'checking out development'
- checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'A']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])      
+
+
+   stage('clone stash')
+   {
+       // for display purposes
+       // Get some code from a GitHub repository
+       git url: 'https://github.com/santoshdevops/multibranch.git'
+}
+    stage('clean')
+	{
+       // Clean the maven build.
+       sh "mvn clean"
+}
+  
+    stage('package')
+     {  // Run the maven build.
+       sh "mvn package -DskipTests"
+}
+
+ 
+
+ 
+ 
     }
     }
 	

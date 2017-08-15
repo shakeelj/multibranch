@@ -30,27 +30,12 @@ stage('master')
       steps {
                 echo 'checking out development'
 
-
-   stage('clone stash')
-   {
-       // for display purposes
-       // Get some code from a GitHub repository
        git url: 'https://github.com/santoshdevops/multibranch.git'
-}
-    stage('clean')
-	{
-       // Clean the maven build.
+
        sh "mvn clean"
-}
-  
-    stage('package')
-     {  // Run the maven build.
+
        sh "mvn package -DskipTests"
-}
 
- 
-
- 
  
     }
     }

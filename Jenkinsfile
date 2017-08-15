@@ -94,8 +94,9 @@ node
 	   
     stage('publish to artifactory')
        {
-	     sh 'echo masterpublishtorepos
-		 echo {env.BUILD_NUMBER}'
+	     sh """ 'echo masterpublishtorepos
+		 echo {env.BUILD_NUMBER}
+		 """
 		 
 	   //sh """
        //cd target

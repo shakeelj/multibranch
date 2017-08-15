@@ -1,17 +1,75 @@
-
+pipeline {
   
-   node {
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'A']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])
-    dir('A') {
-        sh 'echo master'
+agent any
+      
+stages  {
+    
+stage('master')
+    {
+      
+       when {
+         branch 'master'
+      }
+      
+      steps {
+                echo 'checking out master'
+
+       git url: 'https://github.com/santoshdevops/multibranch.git'
+
+       sh "cd master; /bin/mvn clean"
+
+       sh "cd master; /bin/mvn package -DskipTests"
+
+ 
     }
-    checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'B']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])
-    dir('B') {
-        sh 'echo development'
-    }
-checkout([$class: 'GitSCM', branches: [[name: '*/feature']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'C']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'https://github.com/santoshdevops/multibranch.git']]])
-    dir('C') {
-        sh 'echo feature'
     }
 
+
+
+	
+	 stage('development')
+    {
+      
+       when {
+         branch 'development'
+      }
+      
+      steps {
+                echo 'checking out development'
+
+       git url: 'https://github.com/santoshdevops/multibranch.git'
+
+       sh "cd development; /bin/mvn clean"
+
+       sh "cd development; /bin/mvn package -DskipTests"
+
+ 
     }
+    }
+	
+	
+	 stage('feature')
+    {
+      
+       when {
+         branch 'feature'
+      }
+      
+         steps {
+                echo 'checking out feature'
+
+       git url: 'https://github.com/santoshdevops/multibranch.git'
+
+       sh "cd feature; /bin/mvn clean"
+
+       sh "cd feature; /bin/mvn package -DskipTests"
+
+ 
+    }
+    }
+	
+	}
+	}
+	
+	
+	

@@ -7,15 +7,15 @@ node
 	    {
 	    if (env.BRANCH_NAME == 'development') 
 			{
-			 developbranch()
+			 developBranch()
 			}
 	    if (env.BRANCH_NAME == 'master') 
 			{
-			 masterbranch()
+			 masterBranch()
 			}
 	    if (env.BRANCH_NAME == 'feature') 
 			{
-			 featurebranch()
+			 featureBranch()
 			}
 		}	
 		
@@ -27,7 +27,7 @@ node
     } 
     finally 
     {
-    // Send notification for success/failure
+   
     notifyBuild()
     }	
 		

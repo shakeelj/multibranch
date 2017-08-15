@@ -1,20 +1,22 @@
-node
+node 
 {
-
     try
 	{
     stage('select the branch')
 	    {
 	    if (env.BRANCH_NAME == 'development') 
 			{
+			//calling the function developBranch if develop branch is getting built
 			 developBranch()
 			}
 	    if (env.BRANCH_NAME == 'master') 
 			{
+			//calling the function masterBranch if master branch is getting built
 			 masterBranch()
 			}
 	    if (env.BRANCH_NAME == 'feature') 
 			{
+			//calling the function featureBranch if feature branch is getting built
 			 featureBranch()
 			}
 		}	
@@ -33,7 +35,8 @@ node
 		
 		
 }
-
+// function defination for developBranch
+//// build using maven, run the tests, push it to artifactory with SNAPSHOT-1.0.0 as the version  	
 	def developBranch() 
 	{
  
@@ -48,26 +51,34 @@ node
        sh "mvn clean"
        }
   
-    stage('package')
+    stage'package'
       {
        sh "mvn package -DskipTests"
        }
 	   
     stage('publish to artifactory')
        {
-	   sh 'echo hello world'
+	   sh 'echo hello'
+	//   sh """
+     //  cd target
+// there is issue in pom.xml which needs to be corrected by dev, so using work around for now
+	   
+	  // mv mw-identity-exp-api-1.0.zip  mw-identity-exp-api-1.0.0-SNAPSHOT.zip
+      // mvn deploy:deploy-file -DgroupId=com.mcd -DartifactId=mw-identity-exp-api -Dversion=1.0.0-SNAPSHOT -Dpackaging=zip -Dfile=mw-identity-exp-api-1.0.0-SNAPSHOT.zip -DrepositoryId=apps-snapshot-local -Durl=http://artifactrepository.mcd.com/artifactory/list/apps-snapshot-local/com.mcd/mw-identity-exp-api/1.0.0-SNAPSHOT/
+     //  """
 	   }
 
 	}
 	
+// function defination for masterBranch	
 	
-	
+// build using maven, run the tests, push it to artifactory with jenkins build number as the version 	
 	def masterBranch() 
 	{
  
     stage('clone stash')
        {
-       git url: 'ssh://git@coderepository.mcd.com:8443/sdkpil/identity-exp-api.git',credentialsId: '05de1113-6e45-4a34-8250-6f0f73f09267',branch: 'master'
+       git url: 'https://github.com/santoshdevops/multibranch.git'
        }
     
 	stage('clean')
@@ -76,28 +87,37 @@ node
        sh "mvn clean"
        }
   
-    stage('package')
+    stage'package'
       {
        sh "mvn package -DskipTests"
        }
 	   
     stage('publish to artifactory')
        {
-	   sh """
-       cd target
-	   mv mw-identity-exp-api-1.0.zip  mw-identity-exp-api-1.0.0-SNAPSHOT.zip
-       mvn deploy:deploy-file -DgroupId=com.mcd -DartifactId=mw-identity-exp-api -Dversion=1.0.0-SNAPSHOT -Dpackaging=zip -Dfile=mw-identity-exp-api-1.0.0-SNAPSHOT.zip -DrepositoryId=apps-snapshot-local -Durl=http://artifactrepository.mcd.com/artifactory/list/apps-snapshot-local/com.mcd/mw-identity-exp-api/1.0.0-SNAPSHOT/
-       """
+	     sh 'echo hello'
+	   //sh """
+       //cd target
+	   //mv mw-identity-exp-api-1.0.zip  mw-identity-exp-api-1.0.0-{env.BUILD_NUMBER}.zip
+       //mvn deploy:deploy-file -DgroupId=com.mcd -DartifactId=mw-identity-exp-api -Dversion=1.0.0-{env.BUILD_NUMBER} -Dpackaging=zip -Dfile=mw-identity-exp-api-1.0.0-{env.BUILD_NUMBER}.zip -DrepositoryId=apps-snapshot-local -Durl=http://artifactrepository.mcd.com/artifactory/list/apps-snapshot-local/com.mcd/mw-identity-exp-api/1.0.0-SNAPSHOT/	  
+
+	  // ${BUILD_NUMBER}
+      // mvn -B release:prepare 
+	  // mvn -B release:perform
+	  // mvn release:update-versions -DautoVersionSubmodules=true
+       //"""
 	   }
 
 	}
+
+// function defination for featureBranch	
+////// build using maven, run the tests, send mails to team.
 	
 	def featureBranch() 
 	{
  
     stage('clone stash')
        {
-       git url: 'ssh://git@coderepository.mcd.com:8443/sdkpil/identity-exp-api.git',credentialsId: '05de1113-6e45-4a34-8250-6f0f73f09267',branch: 'feature'
+       git url: 'https://github.com/santoshdevops/multibranch.git'
        }
     
 	stage('clean')
@@ -106,21 +126,14 @@ node
        sh "mvn clean"
        }
   
-    stage('package')
+    stage'package'
       {
        sh "mvn package -DskipTests"
        }
-	   
-    stage('publish to artifactory')
-       {
-	   sh """
-       cd target
-	   mv mw-identity-exp-api-1.0.zip  mw-identity-exp-api-1.0.0-SNAPSHOT.zip
-       mvn deploy:deploy-file -DgroupId=com.mcd -DartifactId=mw-identity-exp-api -Dversion=1.0.0-SNAPSHOT -Dpackaging=zip -Dfile=mw-identity-exp-api-1.0.0-SNAPSHOT.zip -DrepositoryId=apps-snapshot-local -Durl=http://artifactrepository.mcd.com/artifactory/list/apps-snapshot-local/com.mcd/mw-identity-exp-api/1.0.0-SNAPSHOT/
-       """
-	   }
-
-	}
+	
+    	}
+	
+	
 	
 
 	def notifyBuild()
@@ -128,4 +141,7 @@ node
 	sh 'echo hello'
 	}
 	
+	
+	 
+}
 
